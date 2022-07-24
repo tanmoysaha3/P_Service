@@ -3,6 +3,7 @@ package com.example.p_service;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -43,26 +44,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         appListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*@SuppressLint("WrongConstant") List<PackageInfo> applicationInfoList= getPackageManager().getInstalledPackages(PackageManager.GET_ACTIVITIES);
+                @SuppressLint("WrongConstant") List<PackageInfo> applicationInfoList= getPackageManager().getInstalledPackages(PackageManager.GET_ACTIVITIES);
                 String[] strings=new String[applicationInfoList.size()];
                 int i=0;
                 for (PackageInfo applicationInfo:applicationInfoList){
                     strings[i]=applicationInfo.packageName;
                     i++;
                 }
-
                 appListListV.setAdapter(new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1,strings));
-                textView.setText(applicationInfoList.size()+" apps are installed");*/
-                List<PackageInfo> packageInfoList=getPackageManager().getInstalledPackages(0);
+                textView.setText(applicationInfoList.size()+" apps are installed");
+
+                /*List<PackageInfo> packageInfoList=getPackageManager().getInstalledPackages(0);
                 ArrayList<String> arrayList=new ArrayList<>();
-                //String[] strings=new String[packageInfoList.size()];
-                /*for (int i=0; i<packageInfoList.size();i++){
-                    PackageInfo packageInfo=packageInfoList.get(i);
-                    if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM)==0){
-                        Toast.makeText(MainActivity.this, "Name"+packageInfo.applicationInfo.loadLabel(getPackageManager()).toString(), Toast.LENGTH_SHORT).show();
-                        //strings[i]=packageInfo.applicationInfo.loadLabel(getPackageManager()).toString();
-                    }
-                }*/
                 int i=0;
                 for (PackageInfo packageInfo:packageInfoList){
                     if (((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM)==0) || (packageInfo.applicationInfo.loadLabel(getPackageManager()).toString().equals("YouTube"))){
@@ -71,9 +64,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         i++;
                     }
                 }
-
                 appListListV.setAdapter(new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1,arrayList));
-                textView.setText(arrayList.size()+" apps are installed");
+                textView.setText(arrayList.size()+" apps are installed");*/
+
+                /*ActivityManager activityManager = (ActivityManager) getSystemService( ACTIVITY_SERVICE );
+                List<ActivityManager.RunningAppProcessInfo> procInfos = activityManager.getRunningAppProcesses();
+                for(int i = 0; i < procInfos.size(); i++){
+                    if(procInfos.get(i).processName.equals("com.android.browser")) {
+                        Toast.makeText(getApplicationContext(), "Browser is running", Toast.LENGTH_LONG).show();
+                    }
+                    else if(procInfos.get(i).processName.equals("com.google.android.youtube"))
+                    else if(procInfos.get(i).processName.equals("com.simplemobiletools.gallery"))
+                    else if(procInfos.get(i).processName.equals("com.example.p18_studyplanner"))
+                    else if(procInfos.get(i).processName.equals("org.mozilla.firefox"))
+                }*/
             }
         });
     }
