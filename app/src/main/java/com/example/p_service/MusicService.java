@@ -1,6 +1,7 @@
 package com.example.p_service;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -13,9 +14,12 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.IBinder;
 import android.provider.Settings;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+
+import java.util.List;
 
 public class MusicService extends Service {
 
@@ -47,6 +51,9 @@ public class MusicService extends Service {
 
         startForeground(1,notification);
 
+        //checkProcess();
+        ActivityManager activityManager=(ActivityManager)getSystemService(ACTIVITY_SERVICE);
+        //List<ActivityManager.>
         // creating a media player which
         // will play the audio of Default
         // ringtone in android device
@@ -65,6 +72,43 @@ public class MusicService extends Service {
         return START_STICKY;
     }
 
+    private void checkProcess() {
+        ActivityManager activityManager = (ActivityManager) getSystemService( ACTIVITY_SERVICE );
+        List<ActivityManager.RunningAppProcessInfo> procInfos = activityManager.getRunningAppProcesses();
+        for(int i = 0; i < procInfos.size(); i++){
+            if(procInfos.get(i).processName.equals("com.android.browser")) {
+                Toast.makeText(getApplicationContext(), "Browser is running", Toast.LENGTH_LONG).show();
+            }
+            else if(procInfos.get(i).processName.equals("com.google.android.youtube")){
+                Toast.makeText(getApplicationContext(), "Browser is running", Toast.LENGTH_LONG).show();
+            }
+            else if(procInfos.get(i).processName.equals("com.simplemobiletools.gallery")){
+                Toast.makeText(getApplicationContext(), "Browser is running", Toast.LENGTH_LONG).show();
+            }
+            else if(procInfos.get(i).processName.equals("com.example.p18_studyplanner")){
+                Toast.makeText(getApplicationContext(), "Browser is running", Toast.LENGTH_LONG).show();
+            }
+            else if(procInfos.get(i).processName.equals("org.mozilla.firefox")){
+                Toast.makeText(getApplicationContext(), "Browser is running", Toast.LENGTH_LONG).show();
+            }
+            /*else if (procInfos.get(i).processName.equals("com.example.p_service")){
+                Toast.makeText(getApplicationContext(), "Service is running", Toast.LENGTH_SHORT).show();
+            }*/
+            else if (procInfos.get(i).processName.equals("com.example.sampleproject")){
+                Toast.makeText(this, "Sample Project is running", Toast.LENGTH_SHORT).show();
+            }
+            else if (procInfos.get(i).processName.equals("com.google.android.calendar")){
+                Toast.makeText(this, "Calendar is running", Toast.LENGTH_SHORT).show();
+            }
+            else if (procInfos.get(i).processName.equals("com.google.android.apps.photos")){
+                Toast.makeText(this, "Photos is running", Toast.LENGTH_SHORT).show();
+            }
+            else if (procInfos.get(i).processName.equals("com.android.chrome")){
+                Toast.makeText(this, "Chrome is running", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     @Override
 
     // execution of the service will
@@ -76,9 +120,6 @@ public class MusicService extends Service {
         if (player!=null){
             player.stop();
         }
-
-        // stopping the process
-
     }
 
     @Nullable
