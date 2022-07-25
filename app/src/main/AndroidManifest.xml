@@ -4,14 +4,13 @@
     package="com.example.p_service">
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
-
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    -<uses-permission
+    <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -22,22 +21,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.P_Service"
-        tools:targetApi="31"
-        tools:ignore="GoogleAppIndexingWarning,LockedOrientationActivity">
-
+        tools:ignore="GoogleAppIndexingWarning,LockedOrientationActivity"
+        tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".UsageStatsActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+        <activity
+            android:name=".CheckPermission"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"></activity>
 
-        <service android:name=".MusicService"/>
+        <service android:name=".MusicService" />
 
-        <receiver android:name=".BootUpReceiver"
+        <receiver
+            android:name=".BootUpReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
